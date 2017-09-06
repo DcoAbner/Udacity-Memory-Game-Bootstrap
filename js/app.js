@@ -37,13 +37,12 @@ selectedCard2 = null;
 
 $(document).ready( function() {
 
-    deckOfCards = createDeck(listOfCards);
-    numberOfCards = deckOfCards.length;
-    numberOfMatchedCards = 0;
 
-    for (let i=0; i<numberOfCards; i++) {
-        $("#cardTable").append(`<div data-cardPosition=${i} class="card col-md-4 col-lg-3 col-sm-6"></div>`);
-    }
+    resetGame();
+
+    $("#resetButton").click(function() {
+        resetGame();
+    })
 
 })
 
@@ -113,4 +112,19 @@ function endGame() {
     alert("You win");
 }
 
+function resetGame() {
+    deckOfCards = createDeck(listOfCards);
+    numberOfCards = deckOfCards.length;
+    numberOfMatchedCards = 0;
+
+    drawCards();
+}
+
+function drawCards() {
+
+    $("#cardTable").empty();
+    for (let i=0; i<numberOfCards; i++) {
+        $("#cardTable").append(`<div data-cardPosition=${i} class="card col-md-4 col-lg-3 col-sm-6"></div>`);
+    }
+}
 
