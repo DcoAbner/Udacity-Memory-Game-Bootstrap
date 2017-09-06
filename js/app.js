@@ -20,7 +20,9 @@ let listOfCards = [
 let deckOfCards = [];
 let numberOfCards = 0;
 let numberOfMatchedCards = 0;
-let startTime = null;
+let elapsedTime = null;
+
+let timerFunction = function(){};
 
 selectedCard1 = null;
 selectedCard2 = null;
@@ -112,18 +114,23 @@ function hideIcon(cardIndex) {
 }
 
 function endGame() {
-    timeToComplete = Math.round((Date.now() - startTime)/1000);
+
+    clearInterval(timerFunction);
+    timeToComplete = elapsedTime;
     alert(`You won in ${timeToComplete} seconds`);
 }
 
 function resetGame() {
+
     deckOfCards = createDeck(listOfCards);
     numberOfCards = deckOfCards.length;
     numberOfMatchedCards = 0;
+    elapsedTime = 0;
 
     drawCards();
     initializeClick();
-    startTime = startTimer();
+    updateTimer(elapsedTime);
+    startTimer();
 
 }
 
@@ -153,5 +160,15 @@ function shuffle(array) {
 
 function startTimer() {
 
-    return Date.now();
+    let start = Date.now();
+    timerFunction = setInterval(function() {
+        elapsedTime = (Math.round((new Date - start) / 1000));
+        updateTimer(elapsedTime);
+    }, 1000);
+
 }
+
+function updateTimer(time) {
+    $("#timer").text(`${time} seconds`);
+}
+
