@@ -17,6 +17,23 @@ let listOfCards = [
     // }
 ]
 
+let deckOfCards = [];
+let numberOfCards = 0;
+let numberOfMatchedCards = 0;
+
+selectedCard1 = null;
+selectedCard2 = null;
+
+$(document).ready( function() {
+
+    resetGame();
+
+    $("#resetButton").click(function() {
+        resetGame();
+    })
+
+})
+
 //function creates two copies of each card and returns the new array
 function createDeck(cards) {
     let cardArray = [];
@@ -28,56 +45,41 @@ function createDeck(cards) {
     return shuffle(cardArray);
 }
 
-let deckOfCards = [];
-let numberOfCards = 0;
-let numberOfMatchedCards = 0;
+function initializeClick() {
 
-selectedCard1 = null;
-selectedCard2 = null;
+    $("#cardTable").on('click', 'div', function () {
 
-$(document).ready( function() {
+        if ($(this).hasClass("open")) {
+            return;
+        } else {
+            console.log("click");
+            if (!selectedCard1) {
+                selectedCard1 = $(this).attr('data-cardPosition');
+                displayIcon(selectedCard1);
+            } else if (!selectedCard2) {
+                if (selectedCard1 !== $(this).attr('data-cardPosition')) {
+                    selectedCard2 = $(this).attr('data-cardPosition');
+                    displayIcon(selectedCard2);
 
+                    if (!compareCards(selectedCard1, selectedCard2)) {
+                        hideIcon(selectedCard1);
+                        hideIcon(selectedCard2);
+                    } else {
+                        if (numberOfMatchedCards === numberOfCards) {
 
-    resetGame();
+                            endGame();
 
-    $("#resetButton").click(function() {
-        resetGame();
-    })
-
-})
-
-$("#cardTable").on('click', 'div', function() {
-
-    if ($(this).hasClass("open")) {
-        return;
-    } else {
-        console.log("click");
-        if (!selectedCard1) {
-            selectedCard1 = $(this).attr('data-cardPosition');
-            displayIcon(selectedCard1);
-        } else if (!selectedCard2) {
-            if (selectedCard1 !== $(this).attr('data-cardPosition')) {
-                selectedCard2 = $(this).attr('data-cardPosition');
-                displayIcon(selectedCard2);
-
-                if (!compareCards(selectedCard1, selectedCard2)) {
-                    hideIcon(selectedCard1);
-                    hideIcon(selectedCard2);
-                } else {
-                    if (numberOfMatchedCards === numberOfCards) {
-
-                        endGame();
-
+                        }
                     }
+
+                    selectedCard1 = null;
+                    selectedCard2 = null;
+
                 }
-
-                selectedCard1 = null;
-                selectedCard2 = null;
-
             }
         }
-    }
-})
+    })
+}
 
 function compareCards(card1Index, card2Index) {
     if (deckOfCards[card1Index].icon === deckOfCards[card2Index].icon) {
@@ -118,6 +120,8 @@ function resetGame() {
     numberOfMatchedCards = 0;
 
     drawCards();
+    initializeClick();
+
 }
 
 function drawCards() {
