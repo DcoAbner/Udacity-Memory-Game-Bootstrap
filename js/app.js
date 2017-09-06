@@ -20,6 +20,7 @@ let listOfCards = [
 let deckOfCards = [];
 let numberOfCards = 0;
 let numberOfMatchedCards = 0;
+let startTime = null;
 
 selectedCard1 = null;
 selectedCard2 = null;
@@ -111,7 +112,8 @@ function hideIcon(cardIndex) {
 }
 
 function endGame() {
-    alert("You win");
+    timeToComplete = Math.round((Date.now() - startTime)/1000);
+    alert(`You won in ${timeToComplete} seconds`);
 }
 
 function resetGame() {
@@ -121,6 +123,7 @@ function resetGame() {
 
     drawCards();
     initializeClick();
+    startTime = startTimer();
 
 }
 
@@ -146,4 +149,9 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function startTimer() {
+
+    return Date.now();
 }
