@@ -14,6 +14,18 @@ let listOfCards = [
     },
     {
         icon: 'bolt'
+    },
+    {
+        icon: 'diamond'
+    },
+    {
+        icon: 'paper-plane-o'
+    },
+    {
+        icon: 'cube'
+    },
+    {
+        icon: 'bicycle'
     }
 
 ]
