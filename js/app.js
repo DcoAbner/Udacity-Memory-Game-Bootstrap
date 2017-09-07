@@ -9,12 +9,13 @@ let listOfCards = [
     {
         icon: 'bomb'
     },
-    // {
-    //     icon: 'leaf'
-    // },
-    // {
-    //     icon: 'bolt'
-    // }
+    {
+        icon: 'leaf'
+    },
+    {
+        icon: 'bolt'
+    }
+
 ]
 
 let deckOfCards = [];
@@ -235,3 +236,10 @@ function getSpecificCard(index) {
     return $($("#cardTable").children()[index]).children('.card');
 }
 
+$(window).resize(function() {
+    // console.log($($("#cardTable").children()[0]).width());
+    for (let card of $("#cardTable").children()) {
+        console.log(card);
+        $(card).height($(card).width());
+    }
+})

@@ -44,3 +44,10 @@ body {
 #newGameButton {
     background: #2e3d49 !important;
 }
+
+@media screen and (max-width: 576px) {
+    .card i {
+        font-size: 32px !important;
+        color: white;
+    }
+}
