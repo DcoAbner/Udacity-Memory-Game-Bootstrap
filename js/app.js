@@ -9,12 +9,12 @@ let listOfCards = [
     {
         icon: 'bomb'
     },
-    // {
-    //     icon: 'leaf'
-    // },
-    // {
-    //     icon: 'bolt'
-    // }
+    {
+        icon: 'leaf'
+    },
+    {
+        icon: 'bolt'
+    }
 ]
 
 let deckOfCards = [];
@@ -92,6 +92,7 @@ function initializeClick() {
 }
 
 function compareCards(card1Index, card2Index) {
+
     if (deckOfCards[card1Index].icon === deckOfCards[card2Index].icon) {
         console.log("Match");
         $($("#cardTable").children()[card1Index]).addClass("matched");
@@ -108,7 +109,7 @@ function displayIcon(cardIndex) {
 
     let currentCard = $("#cardTable").children()[cardIndex];
     $(currentCard).addClass("open");
-    $(currentCard).append(`<i class="fa fa-${deckOfCards[cardIndex].icon}"></i>`);
+    $(currentCard).append(`<i class="my-auto fa fa-${deckOfCards[cardIndex].icon}"></i>`);
 
 }
 
@@ -125,6 +126,7 @@ function endGame() {
     clearInterval(timerFunction);
     timeToComplete = elapsedTime;
     alert(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
+
 }
 
 function resetGame() {
@@ -154,7 +156,6 @@ function drawCards() {
         $($("#cardTable").children()[i]).height(width);
         console.log(width);
     }
-
 
 }
 
