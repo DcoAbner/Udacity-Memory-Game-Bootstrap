@@ -22,6 +22,8 @@ let numberOfCards = 0;
 let numberOfMatchedCards = 0;
 let elapsedTime = null;
 
+let numberOfMoves = 0;
+
 let timerFunction = function(){};
 
 selectedCard1 = null;
@@ -55,12 +57,13 @@ function initializeClick() {
         if ($(this).hasClass("open")) {
             return;
         } else {
-            console.log("click");
             if (!selectedCard1) {
                 selectedCard1 = $(this).attr('data-cardPosition');
                 displayIcon(selectedCard1);
             } else if (!selectedCard2) {
                 if (selectedCard1 !== $(this).attr('data-cardPosition')) {
+                    numberOfMoves++;
+                    updateStars();
                     selectedCard2 = $(this).attr('data-cardPosition');
                     displayIcon(selectedCard2);
 
@@ -126,11 +129,14 @@ function resetGame() {
     numberOfCards = deckOfCards.length;
     numberOfMatchedCards = 0;
     elapsedTime = 0;
+    numberOfMoves = 0;
 
     drawCards();
     initializeClick();
     updateTimer(elapsedTime);
     startTimer();
+    drawStars();
+    updateStars(numberOfMoves);
 
 }
 
@@ -170,5 +176,26 @@ function startTimer() {
 
 function updateTimer(time) {
     $("#timer").text(`${time} seconds`);
+}
+
+function updateStars() {
+    let numberOfStars = 3;
+
+    console.log(numberOfMoves);
+
+    if (numberOfMoves > 10) {
+        numberOfStars = 1;
+    } else if (numberOfMoves > 5) {
+        numberOfStars = 2;
+    }
+
+    drawStars(numberOfStars);
+}
+
+function drawStars(num) {
+    $("#stars").empty();
+    for (let i = 0; i < num; i++) {
+        $("#stars").append(`<i class="fa fa-star"></i>`)
+    }
 }
 
