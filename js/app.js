@@ -64,6 +64,7 @@ function initializeClick() {
                 if (selectedCard1 !== $(this).attr('data-cardPosition')) {
                     numberOfMoves++;
                     updateStars();
+                    updateMoves(numberOfMoves);
                     selectedCard2 = $(this).attr('data-cardPosition');
                     displayIcon(selectedCard2);
 
@@ -120,7 +121,7 @@ function endGame() {
 
     clearInterval(timerFunction);
     timeToComplete = elapsedTime;
-    alert(`You won in ${timeToComplete} seconds`);
+    alert(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
 }
 
 function resetGame() {
@@ -137,6 +138,7 @@ function resetGame() {
     startTimer();
     drawStars();
     updateStars(numberOfMoves);
+    updateMoves(numberOfMoves);
 
 }
 
@@ -197,5 +199,9 @@ function drawStars(num) {
     for (let i = 0; i < num; i++) {
         $("#stars").append(`<i class="fa fa-star"></i>`)
     }
+}
+
+function updateMoves(num) {
+    $("#movesCounter").text(`${numberOfMoves} moves`);
 }
 
