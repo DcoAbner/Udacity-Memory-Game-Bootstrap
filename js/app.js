@@ -2,46 +2,7 @@
  * Created by thenry on 9/6/17.
  */
 
-let listOfCards = [
-    {
-        icon: 'anchor'
-    },
-    {
-        icon: 'bomb'
-    },
-    {
-        icon: 'leaf'
-    },
-    {
-        icon: 'bolt'
-    },
-    {
-        icon: 'diamond'
-    },
-    {
-        icon: 'paper-plane-o'
-    },
-    {
-        icon: 'cube'
-    },
-    {
-        icon: 'bicycle'
-    }
 
-]
-
-let deckOfCards = [];
-let numberOfCards = 0;
-let numberOfMatchedCards = 0;
-let elapsedTime = null;
-let numberOfStars = 3;
-
-let numberOfMoves = 0;
-
-let timerFunction = null;
-
-selectedCard1 = null;
-selectedCard2 = null;
 
 $(document).ready( function() {
 
