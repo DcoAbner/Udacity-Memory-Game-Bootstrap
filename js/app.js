@@ -53,7 +53,8 @@ function createDeck(cards) {
 
 function initializeClick() {
 
-    $("#cardTable").on('click', 'div', function () {
+    $("#cardTable").on('click', '.card', function () {
+
 
         if ($(this).hasClass("open")) {
             return;
@@ -101,8 +102,8 @@ function compareCards(card1Index, card2Index) {
 
     if (deckOfCards[card1Index].icon === deckOfCards[card2Index].icon) {
         console.log("Match");
-        $($("#cardTable").children()[card1Index]).addClass("matched");
-        $($("#cardTable").children()[card2Index]).addClass("matched");
+        $(getSpecificCard(card1Index)).addClass("matched");
+        $(getSpecificCard(card2Index)).addClass("matched");
         numberOfMatchedCards += 2;
         return true;
     } else {
@@ -113,7 +114,7 @@ function compareCards(card1Index, card2Index) {
 
 function displayIcon(cardIndex) {
 
-    let currentCard = $("#cardTable").children()[cardIndex];
+    let currentCard = getSpecificCard(cardIndex);
     $(currentCard).addClass("open");
     $(currentCard).append(`<i class="my-auto fa fa-${deckOfCards[cardIndex].icon}"></i>`);
 
@@ -121,7 +122,7 @@ function displayIcon(cardIndex) {
 
 function hideIcon(cardIndex) {
 
-    let currentCard = $("#cardTable").children()[cardIndex];
+    let currentCard = getSpecificCard(cardIndex);
     $(currentCard).removeClass("open");
     $(currentCard).children('i').remove();
 
@@ -168,7 +169,7 @@ function drawCards() {
 
     $("#cardTable").empty();
     for (let i=0; i<numberOfCards; i++) {
-        $("#cardTable").append(`<div data-cardPosition=${i} class="card p-3 col-3"></div>`);
+        $("#cardTable").append(`<div class="cardHolder p-3 col-3"><div data-cardPosition=${i} class="card"></div></div>`);
         let width = $($("#cardTable").children()[i]).width();
         $($("#cardTable").children()[i]).height(width);
         console.log(width);
@@ -197,7 +198,6 @@ function startTimer() {
     let start = Date.now();
     timerFunction = setInterval(function() {
         elapsedTime = (Math.round((new Date - start) / 1000));
-        console.log(elapsedTime);
         updateTimer(elapsedTime);
     }, 1000);
 
@@ -229,5 +229,9 @@ function drawStars(num) {
 
 function updateMoves(num) {
     $("#movesCounter").text(`${numberOfMoves} moves`);
+}
+
+function getSpecificCard(index) {
+    return $($("#cardTable").children()[index]).children('.card');
 }
 
