@@ -2,10 +2,17 @@
     /*border: 1px solid red;*/
 /*}*/
 
+html {
+    text-align: center;
+    margin: 0 auto;
+}
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
     color: white !important;
+    max-width: 720px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .container {
@@ -14,6 +21,8 @@ body {
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     padding-top: 50px;
     padding-bottom: 50px;
+    max-width: 800px;
+    margin: 0 auto;
 
 }
 
@@ -23,9 +32,9 @@ body {
 }
 
 .card {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 20px !important;
+    height: 120px !important;
+    width: 120px !important;
+    padding: 5px !important;
     background: #2e3d49 !important;
 }
 
@@ -45,9 +54,40 @@ body {
     background: #2e3d49 !important;
 }
 
+@media screen and (max-width: 768px) {
+    .card i {
+        font-size: 40px !important;
+        color: white;
+    }
+    .card {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}
+
 @media screen and (max-width: 576px) {
     .card i {
         font-size: 32px !important;
         color: white;
     }
+    .card {
+        width: 90px !important;
+        height: 90px !important;
+    }
+    #cardTable {
+        max-height: 500px !important;
+    }
+}
+
+html, body, .container {
+    height: 100vh; !important
+}
+
+#cardTable {
+    height: 90%;
+}
+
+h4 {
+    margin: 0 auto;
+    text-align: center;
 }

@@ -181,12 +181,12 @@ function resetGame() {
 function drawCards() {
 
     $("#cardTable").empty();
+    let tableHeight = $("#cardTable").height();
     for (let i=0; i<numberOfCards; i++) {
-        $("#cardTable").append(`<div class="cardHolder p-3 col-3"><div data-cardPosition=${i} class="card"></div></div>`);
-        let width = $($("#cardTable").children()[i]).width();
-        $($("#cardTable").children()[i]).height(width);
-        console.log(width);
+        $("#cardTable").append(`<div class="cardHolder col-3"><div data-cardPosition=${i} class="card mx-auto"></div></div>`);
     }
+    $(".card").height(tableHeight/5);
+
 
 }
 
@@ -208,6 +208,9 @@ function shuffle(array) {
 
 function startTimer() {
 
+    if (timerFunction) {
+        clearInterval(timerFunction);
+    }
     let start = Date.now();
     timerFunction = setInterval(function() {
         elapsedTime = (Math.round((new Date - start) / 1000));
@@ -224,9 +227,9 @@ function updateStars() {
 
     console.log(numberOfMoves);
 
-    if (numberOfMoves > 10) {
+    if (numberOfMoves > 17) {
         numberOfStars = 1;
-    } else if (numberOfMoves > 5) {
+    } else if (numberOfMoves > 13) {
         numberOfStars = 2;
     }
 
@@ -248,10 +251,10 @@ function getSpecificCard(index) {
     return $($("#cardTable").children()[index]).children('.card');
 }
 
-$(window).resize(function() {
-    // console.log($($("#cardTable").children()[0]).width());
-    for (let card of $("#cardTable").children()) {
-        console.log(card);
-        $(card).height($(card).width());
-    }
-})
+// $(window).resize(function() {
+//     // console.log($($("#cardTable").children()[0]).width());
+//     for (let card of $("#cardTable").children()) {
+//         console.log(card);
+//         $(card).height($(card).width());
+//     }
+// })
