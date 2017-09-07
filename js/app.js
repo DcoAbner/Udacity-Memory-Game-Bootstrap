@@ -2,8 +2,8 @@
  * Created by thenry on 9/6/17.
  */
 
-
-
+//Function that runs when the page loads.  Calls resetGame() and then sets up
+// listener for reset button
 $(document).ready( function() {
 
     resetGame();
@@ -14,21 +14,34 @@ $(document).ready( function() {
 
 })
 
-//function creates two copies of each card and returns the new array
-function createDeck(cards) {
-    let cardArray = [];
-    for (let card of cards) {
-        for (let i=0; i<2; i++){
-            cardArray.push(card);
-        }
-    }
-    return shuffle(cardArray);
+//initializes variables (declared in variables.js), runs functions to reset game;
+function resetGame() {
+
+    deckOfCards = createDeck(listOfCards);
+    numberOfCards = deckOfCards.length;
+    numberOfMatchedCards = 0;
+    elapsedTime = 0;
+    numberOfMoves = 0;
+    numberOfStars = 3;
+
+    drawCards();
+    initializeClick();
+    updateTimer(elapsedTime);
+    startTimer();
+    drawStars();
+    updateStars(numberOfMoves);
+    updateMoves(numberOfMoves);
+
 }
 
+
+//click listener for clicking on cards.
+// --does not allow click if a card is currently shown
+// --stores as either selectedCard1 (first) or selectedCard2 (second);
+// if second card then updates moves, runs compareCards to see if they match
 function initializeClick() {
 
     $("#cardTable").on('click', '.card', function () {
-
 
         if ($(this).hasClass("open")) {
             return;
@@ -59,52 +72,19 @@ function initializeClick() {
                         selectedCard2 = null;
 
                         if (numberOfMatchedCards === numberOfCards) {
-
                             endGame();
-
                         }
-
                     }
-
                 }
             }
         }
     })
 }
 
-function compareCards(card1Index, card2Index) {
-
-    if (deckOfCards[card1Index].icon === deckOfCards[card2Index].icon) {
-        console.log("Match");
-        $(getSpecificCard(card1Index)).addClass("matched");
-        $(getSpecificCard(card2Index)).addClass("matched");
-        numberOfMatchedCards += 2;
-        return true;
-    } else {
-        console.log("No")
-        return false;
-    }
-}
-
-function displayIcon(cardIndex) {
-
-    let currentCard = getSpecificCard(cardIndex);
-    $(currentCard).addClass("open");
-    $(currentCard).append(`<i class="my-auto fa fa-${deckOfCards[cardIndex].icon}"></i>`);
-
-}
-
-function hideIcon(cardIndex) {
-
-    let currentCard = getSpecificCard(cardIndex);
-    $(currentCard).removeClass("open");
-    $(currentCard).children('i').remove();
-
-}
-
+//runs when the all of the cards are matched; shows the modal that displays time, moves, star rating;
+// allows for reset of game
 function endGame() {
 
-    clearInterval(timerFunction);
     timeToComplete = elapsedTime;
     $("#endGameModal").show();
     $("#modalBodyText").text(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
@@ -115,58 +95,11 @@ function endGame() {
         resetGame();
         $("#endGameModal").hide();
     })
-    // alert(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
 
 }
 
-function resetGame() {
-
-    deckOfCards = createDeck(listOfCards);
-    numberOfCards = deckOfCards.length;
-    numberOfMatchedCards = 0;
-    elapsedTime = 0;
-    numberOfMoves = 0;
-    numberOfStars = 3;
-
-
-    drawCards();
-    initializeClick();
-    updateTimer(elapsedTime);
-    startTimer();
-    drawStars();
-    updateStars(numberOfMoves);
-    updateMoves(numberOfMoves);
-
-}
-
-function drawCards() {
-
-    $("#cardTable").empty();
-    let tableHeight = $("#cardTable").height();
-    for (let i=0; i<numberOfCards; i++) {
-        $("#cardTable").append(`<div class="cardHolder col-3"><div data-cardPosition=${i} class="card mx-auto"></div></div>`);
-    }
-    $(".card").height(tableHeight/5);
-
-
-}
-
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
+//starts the game timer (stores the setInterval as timerFunction so that it can be cleared on subsequent resets;
+// calls update timer function to update text every second
 function startTimer() {
 
     if (timerFunction) {
@@ -180,13 +113,13 @@ function startTimer() {
 
 }
 
+//displays the current timer elapsed in seconds
 function updateTimer(time) {
     $("#timer").text(`${time} seconds`);
 }
 
+//updates the number of stars (default 3, minimum 1)
 function updateStars() {
-
-    console.log(numberOfMoves);
 
     if (numberOfMoves > 17) {
         numberOfStars = 1;
@@ -197,6 +130,7 @@ function updateStars() {
     drawStars(numberOfStars);
 }
 
+//displays stars on screen
 function drawStars(num) {
     $("#stars").empty();
     for (let i = 0; i < num; i++) {
@@ -204,18 +138,7 @@ function drawStars(num) {
     }
 }
 
+//displays moves on screen
 function updateMoves(num) {
     $("#movesCounter").text(`${numberOfMoves} moves`);
 }
-
-function getSpecificCard(index) {
-    return $($("#cardTable").children()[index]).children('.card');
-}
-
-// $(window).resize(function() {
-//     // console.log($($("#cardTable").children()[0]).width());
-//     for (let card of $("#cardTable").children()) {
-//         console.log(card);
-//         $(card).height($(card).width());
-//     }
-// })
