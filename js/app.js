@@ -9,18 +9,19 @@ let listOfCards = [
     {
         icon: 'bomb'
     },
-    {
-        icon: 'leaf'
-    },
-    {
-        icon: 'bolt'
-    }
+    // {
+    //     icon: 'leaf'
+    // },
+    // {
+    //     icon: 'bolt'
+    // }
 ]
 
 let deckOfCards = [];
 let numberOfCards = 0;
 let numberOfMatchedCards = 0;
 let elapsedTime = null;
+let numberOfStars = 3;
 
 let numberOfMoves = 0;
 
@@ -130,7 +131,16 @@ function endGame() {
 
     clearInterval(timerFunction);
     timeToComplete = elapsedTime;
-    alert(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
+    $("#endGameModal").show();
+    $("#modalBodyText").text(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
+    for (let i=0; i<numberOfStars; i++) {
+        $("#modalBodyStars").append(`<i class="fa fa-star"></i>`);
+    }
+    $("#newGameButton").click(function() {
+        resetGame();
+        $("#endGameModal").hide();
+    })
+    // alert(`You won in ${timeToComplete} seconds and ${numberOfMoves} moves`);
 
 }
 
@@ -141,6 +151,8 @@ function resetGame() {
     numberOfMatchedCards = 0;
     elapsedTime = 0;
     numberOfMoves = 0;
+    numberOfStars = 3;
+
 
     drawCards();
     initializeClick();
@@ -196,7 +208,6 @@ function updateTimer(time) {
 }
 
 function updateStars() {
-    let numberOfStars = 3;
 
     console.log(numberOfMoves);
 
