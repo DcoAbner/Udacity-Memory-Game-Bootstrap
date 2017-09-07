@@ -24,7 +24,7 @@ let elapsedTime = null;
 
 let numberOfMoves = 0;
 
-let timerFunction = function(){};
+let timerFunction = null;
 
 selectedCard1 = null;
 selectedCard2 = null;
@@ -69,14 +69,17 @@ function initializeClick() {
                     displayIcon(selectedCard2);
 
                     if (!compareCards(selectedCard1, selectedCard2)) {
-                        hideIcon(selectedCard1);
-                        hideIcon(selectedCard2);
+
+                            hideIcon(selectedCard1);
+                            hideIcon(selectedCard2);
+
                     } else {
+
                         if (numberOfMatchedCards === numberOfCards) {
 
                             endGame();
-
                         }
+
                     }
 
                     selectedCard1 = null;
@@ -147,7 +150,12 @@ function drawCards() {
     $("#cardTable").empty();
     for (let i=0; i<numberOfCards; i++) {
         $("#cardTable").append(`<div data-cardPosition=${i} class="card col-md-4 col-lg-3 col-sm-6"></div>`);
+        let width = $($("#cardTable").children()[i]).width();
+        $($("#cardTable").children()[i]).height(width);
+        console.log(width);
     }
+
+
 }
 
 
@@ -171,6 +179,7 @@ function startTimer() {
     let start = Date.now();
     timerFunction = setInterval(function() {
         elapsedTime = (Math.round((new Date - start) / 1000));
+        console.log(elapsedTime);
         updateTimer(elapsedTime);
     }, 1000);
 
