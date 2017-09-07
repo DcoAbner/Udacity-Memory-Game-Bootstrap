@@ -70,22 +70,25 @@ function initializeClick() {
 
                     if (!compareCards(selectedCard1, selectedCard2)) {
 
+                        setTimeout(function() {
                             hideIcon(selectedCard1);
                             hideIcon(selectedCard2);
+                            selectedCard1 = null;
+                            selectedCard2 = null;
+                        }, 2000)
 
                     } else {
+
+                        selectedCard1 = null;
+                        selectedCard2 = null;
 
                         if (numberOfMatchedCards === numberOfCards) {
 
                             endGame();
+
                         }
 
                     }
-
-
-
-                    selectedCard1 = null;
-                    selectedCard2 = null;
 
                 }
             }
