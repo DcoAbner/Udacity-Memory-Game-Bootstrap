@@ -156,7 +156,7 @@ function drawCards() {
 
     $("#cardTable").empty();
     for (let i=0; i<numberOfCards; i++) {
-        $("#cardTable").append(`<div data-cardPosition=${i} class="card p-3 col-md-4 col-lg-3 col-sm-6"></div>`);
+        $("#cardTable").append(`<div data-cardPosition=${i} class="card p-3 col-3"></div>`);
         let width = $($("#cardTable").children()[i]).width();
         $($("#cardTable").children()[i]).height(width);
         console.log(width);
