@@ -1,10 +1,11 @@
-* {
-    border: 1px solid red;
-}
+/** {*/
+    /*border: 1px solid red;*/
+/*}*/
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
+    color: white !important;
 }
 
 .container {
@@ -16,10 +17,28 @@ body {
 
 .card i {
     font-size: 48px !important;
+    color: white;
 }
 
 .card {
     width: 100% !important;
     height: 100% !important;
     padding: 20px !important;
+    background: #2e3d49 !important;
+}
+
+.card.open {
+    background: #02b3e4 !important;
+}
+
+.card.matched {
+    background: #02ccba !important;
+}
+
+.modal-content {
+    background: #02b3e4 !important;
+}
+
+#newGameButton {
+    background: #2e3d49 !important;
 }
